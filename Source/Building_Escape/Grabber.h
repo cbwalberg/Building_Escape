@@ -16,18 +16,21 @@ class BUILDING_ESCAPE_API UGrabber : public UActorComponent {
 public:	
 	UGrabber(); // Sets default values for this component's properties
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override; // Called every frame
-	void FindPhysicsHandle();
-	void Grab();
-	void Release();
-	void SetupInputComponent();
-	FHitResult GetFirstPhysicsBodyInReach();
 
 protected:
 	virtual void BeginPlay() override; // Called when the game starts
 
 private:
 	UPROPERTY(EditAnywhere) float Reach = 100.0f;
+
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
-	FVector ReachVector;
+
+	void FindPhysicsHandle();
+	void SetupInputComponent();
+	void Grab();
+	void Release();
+	FHitResult GetFirstPhysicsBodyInReach(); // Returns the first Actor within reach with physics body
+	FVector GetPlayerReach() const; // Returns the Player Reach
+	FVector GetPlayerWorldPos() const; // Gets Player Position in World
 };
