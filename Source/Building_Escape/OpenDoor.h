@@ -27,7 +27,9 @@ private:
 	UPROPERTY(EditAnywhere) float DoorCloseDelay = 2.0f;
 	UPROPERTY(EditAnywhere) float DoorCloseSpeed = 1.0f;
 	UPROPERTY(EditAnywhere) ATriggerVolume* PressurePlate = nullptr;
+	UPROPERTY() UAudioComponent* AudioComponent = nullptr;
 
+	bool bDoorClosed = true;
 	FRotator InitialRotation, CurrentRotation;
 
 	float TotalMassOfActors() const;
