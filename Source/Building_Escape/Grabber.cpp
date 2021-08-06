@@ -22,13 +22,13 @@ void UGrabber::BeginPlay() {
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (PhysicsHandle -> GrabbedComponent)
+	if (PhysicsHandle && PhysicsHandle -> GrabbedComponent)
 		PhysicsHandle -> SetTargetLocation(GetPlayerReach());
 }
 
 void UGrabber::FindPhysicsHandle() {
 	PhysicsHandle = GetOwner() -> FindComponentByClass<UPhysicsHandleComponent>();
-	if (PhysicsHandle == nullptr)
+	if (!PhysicsHandle)
 		UE_LOG(LogTemp, Error, TEXT("No Physics Handle Component on %s object"), *GetOwner() -> GetName());
 }
 
@@ -44,13 +44,14 @@ void UGrabber::Grab() {
 	FHitResult HitResult = GetFirstPhysicsBodyInReach();
 	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
 
-	if (HitResult.GetActor()) {
+	if (HitResult.GetActor() && PhysicsHandle) {
 		PhysicsHandle -> GrabComponentAtLocation(ComponentToGrab, NAME_None, GetPlayerReach());
 	}
 }
 
 void UGrabber::Release() {
-	PhysicsHandle -> ReleaseComponent();
+	if (PhysicsHandle)
+		PhysicsHandle -> ReleaseComponent();
 }
 
 // Returns the first Actor within reach with physics body

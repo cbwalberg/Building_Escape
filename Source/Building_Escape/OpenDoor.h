@@ -26,8 +26,7 @@ private:
 	UPROPERTY(EditAnywhere) float DoorOpenSpeed = 1.0f;
 	UPROPERTY(EditAnywhere) float DoorCloseDelay = 2.0f;
 	UPROPERTY(EditAnywhere) float DoorCloseSpeed = 1.0f;
-	UPROPERTY(EditAnywhere) ATriggerVolume* PressurePlate;
-	UPROPERTY(EditAnywhere) AActor* ActorThatOpens;
+	UPROPERTY(EditAnywhere) ATriggerVolume* PressurePlate = nullptr;
 
 	FRotator InitialRotation, CurrentRotation;
 

@@ -19,7 +19,6 @@ void UOpenDoor::BeginPlay() {
 	OpenAngle += InitialRotation.Yaw;
 	if (!PressurePlate)
 		UE_LOG(LogTemp, Error, TEXT("Pressure Plate is null in OpenDoor component of %s"), *GetOwner() -> GetName());
-	ActorThatOpens = GetWorld() -> GetFirstPlayerController() -> GetPawn();
 }
 
 // Called every frame
@@ -38,7 +37,8 @@ float UOpenDoor::TotalMassOfActors() const {
 	float TotalMass = 0.0f;
 	TArray<AActor*> ActorsOnPressurePlate;
 
-	PressurePlate -> GetOverlappingActors(OUT ActorsOnPressurePlate);
+	if (PressurePlate)
+		PressurePlate -> GetOverlappingActors(OUT ActorsOnPressurePlate);
 
 	for (AActor* Actor : ActorsOnPressurePlate) {
 		TotalMass += Actor -> FindComponentByClass<UPrimitiveComponent>() -> GetMass();
