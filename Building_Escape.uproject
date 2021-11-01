@@ -12,5 +12,12 @@
 				"Engine"
 			]
 		}
+	],
+	"Plugins": [
+		{
+			"Name": "FirstPersonCharacter",
+			"Enabled": true,
+			"MarketplaceURL": "https://www.unrealengine.com/marketplace/en-US/slug/first-person-character-controller-c"
+		}
 	]
 }
